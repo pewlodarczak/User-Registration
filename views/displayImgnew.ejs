@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Images</title>
+    <link rel="stylesheet" href="/views/photostyle.css">
+
+</head>
+<body>
+    <h1>
+		Uploaded Images
+	</h1>
+	<div>
+		<% items.forEach(function(image) { %>
+			<table class="center">
+				<tr>
+				  <td>
+					  <div>
+						  	<label for="caption"><%= image.name %></label>
+						</div>
+						<div>
+				  			<img src="data:image/<%=image.img.contentType%>;base64,
+							<%=image.img.data.toString('base64')%>">
+						</div>
+						<div>
+							<%= image.desc %>
+						</div>
+						<div>
+							<button  class="likes" onclick="window.location.href='/clicked/click?name=<%=image.name%>'"><br> <%= image.numLikes %></button>
+						</div>
+						<br>
+						<div>
+							<a href="/delete/delete?name=<%=image.name%>">Delete</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+	
+		<% }) %>
+	</div>
+    <h1>
+		<ul>
+		<li><a href="/uploadImages">Upload Images</a></li>
+		<li><a href="/logout">Logout</a></li>
+	</ul>
+	</h1>
+	<div>
+		<input type="button" onclick="location.href='/welcomeuser';" value="Main Page" />
+	</div>
+</body>
+</html>

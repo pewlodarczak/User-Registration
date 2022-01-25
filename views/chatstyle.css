@@ -1,0 +1,53 @@
+h1 {
+    text-align: center;
+    font-family:'Courier New';
+}
+ul {
+    text-align: center;
+    font-family:'Courier New'
+}
+div {
+    align-self: center;
+    background-color: 009900;
+    margin: 2px;
+    font-family:'Courier New';
+    font-size: 25px;
+    text-align: center;
+}
+
+table {
+    border:1px solid black;
+    align-self: center;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    font-family:'Courier New';
+    overflow-y:scroll; 
+    height:400px; 
+    width:400px; 
+    background:rgb(211, 211, 211)
+}
+
+.button {
+        margin: 0;
+        text-align: right;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+}
+
+.tar {
+    text-align: right;
+}
+
+form {
+    align-self: center;
+}
+body {
+    background-image: url('/img/prog.png');
+}

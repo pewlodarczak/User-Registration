@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--meta http-equiv="X-UA-Compatible" content="IE=edge"-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Page</title>
+    <link rel="stylesheet" href="/views/chatstyle.css">
+</head>
+<body>
+    <div class="title"><h2>Chat Window</h2></div>
+    <div class="center" id="messages"></div>
+    <div><input id="name" value="<%= loggedinUser %>"/>
+        <textarea id="message"></textarea>
+    </div>
+    <div>
+        <button class="button" onClick="fire()">Send</button>
+    </div> 
+    <h2>
+		<ul>
+		    <li><a href="/welcomeuser">Home</a></li>
+		    <li><a href="/logout">Logout</a></li>
+	    </ul>
+	</h2>
+    <script>
+        const getElement = (id) => document.getElementById(id);
+        const addMessage = (message) => {
+            const pTag = document.createElement('p');
+            //console.log(message.data);
+            let mesg = new Int8Array(message.data);
+            let text = '';
+            for (let i = 0; i < mesg.length; i++) {
+                text += String.fromCharCode(mesg[i]);
+            }
+            console.log(text);
+
+            //pTag.appendChild(document.createTextNode(message.data));
+            pTag.appendChild(document.createTextNode(text));
+            getElement('messages').appendChild(pTag);
+            var messageBody = document.querySelector('#messages');
+            messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+        };
+        const ws = new WebSocket('ws://localhost:3030');
+        ws.onopen = () => { 
+            console.log('Now connected');
+        };
+        ws.onmessage = (event) => {
+            //let str = String.fromCharCode(event.data);
+            //const messages = JSON.parse(str); 
+            console.log(event.data)
+            const messages = JSON.parse(event.data);
+            messages.forEach(addMessage);
+        };
+        const fire = () => {
+            const username = getElement('name').value || '???'
+            ws.send(`${username}: ${getElement('message').value}`);
+            getElement('message').value = '';
+        };
+    </script>
+</body>
+</html>
